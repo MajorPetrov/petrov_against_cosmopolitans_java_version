@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game;
+package game.main;
 
+import game.gamestate.GameStateManager;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JPanel;
@@ -32,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     
     private Thread thread;
     private boolean isRunning;
+    private GameStateManager gsm;
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -47,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     @Override
     public void run() {
         long start, elapsed, wait;
+        this.gsm = new GameStateManager();
         
         while(this.isRunning) {
             start = System.nanoTime();
@@ -75,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
      * updating all game logic
      */
     public void tick() {
-        System.out.println("running");
+        this.gsm.tick();
     }
     
     /**
@@ -85,22 +88,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        g.drawRect(10, 10, 10, 10);
+        g.clearRect(0, 0, WIDTH, HEIGHT);
+        gsm.draw(g);
     }
 
     @Override
     public void keyTyped(KeyEvent ke) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gsm.keyPressed(ke.getKeyCode());
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gsm.keyReleased(ke.getKeyCode());
     }
 }
