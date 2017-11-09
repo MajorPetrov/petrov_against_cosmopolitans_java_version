@@ -14,12 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.items;
+package game;
+
+import java.awt.Dimension;
+import javax.swing.JPanel;
 
 /**
- * This interface groups classes which implements toString() method
+ *
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
-public interface Item {
-    String toString();
+public class GamePanel extends JPanel {
+    private static final int WIDTH = 900;
+    private static final int HEIGHT = 550;
+    
+    public GamePanel() {
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+    }
 }

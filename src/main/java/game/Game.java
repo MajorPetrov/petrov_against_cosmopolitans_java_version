@@ -15,24 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package game;
+
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 /**
  *
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
-public class Main {
+public class Game {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JFrame window = new JFrame("Petrov");
-        window.setContentPane(new Window());
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.pack();
-        window.setVisible(true);
+        JFrame frame = new JFrame("Major Petrov");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setLayout(new BorderLayout());
+        frame.add(new GamePanel(), BorderLayout.CENTER);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
     
 }
