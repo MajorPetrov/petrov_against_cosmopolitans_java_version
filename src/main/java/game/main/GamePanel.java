@@ -26,8 +26,8 @@ import javax.swing.JPanel;
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
 public class GamePanel extends JPanel implements Runnable, KeyListener {
-    private static final int WIDTH = 900;
-    private static final int HEIGHT = 550;
+    public static final int WIDTH = 900;
+    public static final int HEIGHT = 550;
     private static final int FPS = 60;
     private static final long targetTime = 1000 / FPS;
     
@@ -37,6 +37,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     
     public GamePanel() {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.addKeyListener(this);
+        this.setFocusable(true);
         this.start();
     }
     
