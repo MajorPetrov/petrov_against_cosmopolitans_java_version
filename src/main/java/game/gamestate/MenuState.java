@@ -76,14 +76,16 @@ public class MenuState extends GameState {
             }
         }
         else if(ke == KeyEvent.VK_ENTER) {
-            if(this.currentSelection == 0) {
-                //play
-            }
-            else if(this.currentSelection == 1) {
-                //help
-            }
-            else if(this.currentSelection == 2) {
-                System.exit(0);
+            switch (this.currentSelection) {
+                case 0:
+                    this.gsm.getStates().push(new Level1State(gsm));
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    System.exit(0);
+                default:
+                    break;
             }
         }
     }

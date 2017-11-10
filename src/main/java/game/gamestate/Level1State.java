@@ -16,36 +16,43 @@
  */
 package game.gamestate;
 
+import game.entities.Player;
 import java.awt.Graphics;
-import java.util.Stack;
 
 /**
  *
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
-public class GameStateManager {
-    private Stack<GameState> states;
+public class Level1State extends GameState {
     
-    public GameStateManager() {
-        this.states = new Stack<GameState>();
-        this.states.push(new MenuState(this));
-    }
+    private Player player;
     
-    public Stack<GameState> getStates() {
-        return this.states;
-    }
-    public void tick() {
-        this.states.peek().tick(); //look at the object at the top of this stack without removing it from the stack
-    }
-    
-    public void draw(Graphics g) {
-        this.states.peek().draw(g);
-    }
-    public void keyPressed(int ke) {
-        this.states.peek().keyPressed(ke);
+    public Level1State(GameStateManager gsm) {
+        super(gsm);
     }
 
+    @Override
+    public void init() {
+        this.player = new Player(30, 30);
+    }
+
+    @Override
+    public void tick() {
+        this.player.tick();
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        this.player.draw(g);
+    }
+
+    @Override
+    public void keyPressed(int ke) {
+        this.player.keyPressed(ke);
+    }
+
+    @Override
     public void keyReleased(int ke) {
-        this.states.peek().keyReleased(ke);
+        this.player.keyReleased(ke);
     }
 }

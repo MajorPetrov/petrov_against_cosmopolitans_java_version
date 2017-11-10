@@ -14,38 +14,54 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.gamestate;
+package game.entities;
 
-import java.awt.Graphics;
-import java.util.Stack;
+import game.main.GamePanel;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  *
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
-public class GameStateManager {
-    private Stack<GameState> states;
+public class Player extends Rectangle {
+    private boolean left, right;
     
-    public GameStateManager() {
-        this.states = new Stack<GameState>();
-        this.states.push(new MenuState(this));
+    public Player(int width, int height) {
+        this.setBounds(GamePanel.WIDTH / 2, GamePanel.HEIGHT /2, width, height);
+        this.left = false;
+        this.right = false;
     }
     
-    public Stack<GameState> getStates() {
-        return this.states;
-    }
     public void tick() {
-        this.states.peek().tick(); //look at the object at the top of this stack without removing it from the stack
+        if(this.right) {
+            this.x++;
+        }
+        else if(this.left) {
+            this.x--;
+        }
     }
     
     public void draw(Graphics g) {
-        this.states.peek().draw(g);
+        g.setColor(Color.BLACK);
+        g.fillRect(x, y, width, height);
     }
+    
     public void keyPressed(int ke) {
-        this.states.peek().keyPressed(ke);
+        if(ke == KeyEvent.VK_RIGHT) {
+            this.right = true;
+        }
+        else if(ke == KeyEvent.VK_LEFT) {
+            this.left = true;
+        }
     }
-
+    
     public void keyReleased(int ke) {
-        this.states.peek().keyReleased(ke);
+        if(ke == KeyEvent.VK_RIGHT) {
+            this.right = false;
+        }
+        else if(ke == KeyEvent.VK_LEFT) {
+            this.left = false;
+        }
     }
 }
