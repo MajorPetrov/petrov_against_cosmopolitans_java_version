@@ -1,5 +1,8 @@
 # The major Petrov against cosmopolitans
 
+[![Java](https://img.shields.io/badge/download-java%209.0.1-green.svg
+)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
 A platform game written in Java (yeah, it's a Super Mario clone)
 
 ## Getting Started
