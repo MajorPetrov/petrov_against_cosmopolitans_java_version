@@ -2,7 +2,7 @@
 
 [![Java](https://img.shields.io/badge/download-java%209.0.1-green.svg
 )](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-[![GNU](https://img.shields.io/badge/license-GNU-brightgreen.svg
+[![GNU](https://img.shields.io/badge/license-GPL-brightgreen.svg
 )](https://github.com/MajorPetrov/petrov_against_cosmopolitans_java_version/blob/master/LICENSE)
 
 A platform game written in Java (yeah, it's a Super Mario clone)
