@@ -17,20 +17,35 @@
 package game.entities;
 
 import game.main.GamePanel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 /**
  *
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
-public class Player extends Rectangle {
-    private boolean left, right;
+public class Player {
+    //movement booleans
+    private boolean left = false, right = false, jumping = false, falling = false;
+    
+    //bounds
+    private double x, y;
+    private int width, height;
+    
+    //jump speed
+    private double jumpSpeed = 5;
+    private double currentJumpSpeed = jumpSpeed;
+    
+    //fall speed
+    private double maxFallSpeed = 5;
+    private double currentFallSpeed = 0.1;
     
     public Player(int width, int height) {
-        this.setBounds(GamePanel.WIDTH / 2, GamePanel.HEIGHT /2, width, height);
-        this.left = false;
-        this.right = false;
+        this.x = GamePanel.WIDTH / 2;
+        this.y = GamePanel.HEIGHT / 2;
+        this.width = width;
+        this.height = height;
     }
     
     public void tick() {
@@ -40,19 +55,47 @@ public class Player extends Rectangle {
         else if(this.left) {
             this.x--;
         }
+        else if(this.jumping) {
+            this.y -= this.currentJumpSpeed;
+            this.currentJumpSpeed -= 0.1;
+            
+            //if the jump energy is over, we reset the jump speed
+            if(this.currentJumpSpeed <= 0) {
+                this.currentJumpSpeed = this.jumpSpeed;
+                this.jumping = false;
+                this.falling = true;
+            }
+        }
+        else if(this.falling) {
+            this.y += this.currentFallSpeed;
+            
+            if(this.currentFallSpeed < this.maxFallSpeed) {
+                this.currentFallSpeed += 0.1;
+            }
+        }
+        else if(!this.falling) {
+            this.currentFallSpeed = 0.1;
+        }
     }
     
     public void draw(Graphics g) {
         g.setColor(Color.BLACK);
-        g.fillRect(x, y, width, height);
+        g.fillRect((int)x, (int)y, width, height);
     }
     
     public void keyPressed(int ke) {
-        if(ke == KeyEvent.VK_RIGHT) {
-            this.right = true;
-        }
-        else if(ke == KeyEvent.VK_LEFT) {
-            this.left = true;
+        switch (ke) {
+            case KeyEvent.VK_RIGHT:
+                this.right = true;
+                break;
+            case KeyEvent.VK_LEFT:
+                this.left = true;
+                break;
+            case KeyEvent.VK_SPACE:
+                this.jumping = true;
+                break;
+            default:
+                break;
         }
     }
     
