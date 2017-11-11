@@ -14,29 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.gamestate;
+package game.objects;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
+
+import game.gamestate.GameState;
 
 /**
- *
+ * 
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
-public abstract class GameState {
-    protected GameStateManager gsm;
-    public static double xOffset;
-	public static double yOffset;
-    
-    public GameState(GameStateManager gsm) {
-        this.gsm = gsm;
-        xOffset = 0;
-        yOffset = 0;
-        this.init();
-    }
-    
-    public abstract void init();
-    public abstract void tick();
-    public abstract void draw(Graphics g);
-    public abstract void keyPressed(int ke);
-    public abstract void keyReleased(int ke);
+public class Block extends Rectangle {
+	private static final long serialVersionUID = 1L;
+	public static final int blockSize = 64;
+	
+	public Block(int x, int y) {
+		this.setBounds(x, y, blockSize, blockSize);
+	}
+	
+	public void tick() {
+		//TODO
+	}
+	
+	public void draw(Graphics g) {
+		g.fillRect(x - (int)GameState.xOffset, y - (int)GameState.yOffset, this.width, this.height);
+	}
 }

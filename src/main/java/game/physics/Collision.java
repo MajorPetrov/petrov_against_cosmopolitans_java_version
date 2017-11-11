@@ -14,29 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.gamestate;
+package game.physics;
 
-import java.awt.Graphics;
+import java.awt.Point;
+
+import game.objects.Block;
 
 /**
  *
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
-public abstract class GameState {
-    protected GameStateManager gsm;
-    public static double xOffset;
-	public static double yOffset;
-    
-    public GameState(GameStateManager gsm) {
-        this.gsm = gsm;
-        xOffset = 0;
-        yOffset = 0;
-        this.init();
-    }
-    
-    public abstract void init();
-    public abstract void tick();
-    public abstract void draw(Graphics g);
-    public abstract void keyPressed(int ke);
-    public abstract void keyReleased(int ke);
+public class Collision {
+	public static boolean playerBlock(Point p, Block b) {
+		return b.contains(p); //if this point (which will be on the player) is inside the block, it returns true
+	}
 }

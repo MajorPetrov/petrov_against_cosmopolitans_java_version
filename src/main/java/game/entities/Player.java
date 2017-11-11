@@ -16,9 +16,14 @@
  */
 package game.entities;
 
+import game.gamestate.GameState;
 import game.main.GamePanel;
+import game.objects.Block;
+import game.physics.Collision;
+
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 
 /**
@@ -32,6 +37,9 @@ public class Player {
     //bounds
     private double x, y;
     private int width, height;
+    
+    //move speed
+    private double moveSpeed = 2.5;
     
     //jump speed
     private double jumpSpeed = 5;
@@ -48,15 +56,28 @@ public class Player {
         this.height = height;
     }
     
-    public void tick() {
-        if(this.right) {
-            this.x++;
+    public void tick(Block[] b) {
+    	int iX = (int) this.x;
+    	int iY = (int) this.y;
+    	
+    	for(int i = 0; i < b.length; i++) {
+    		//top-right or bottom-right corner of the player
+    		if(Collision.playerBlock(new Point(iX + this.width, iY), b[i]) ||
+    				Collision.playerBlock(new Point(iX + this.width, iY + height), b[i])) {
+    			this.right = false;
+    		}
+    	}
+        
+    	if(this.right) {
+            GameState.xOffset += this.moveSpeed;
         }
-        else if(this.left) {
-            this.x--;
+        
+    	if(this.left) {
+            GameState.xOffset -= this.moveSpeed;
         }
-        else if(this.jumping) {
-            this.y -= this.currentJumpSpeed;
+        
+    	if(this.jumping) {
+            GameState.yOffset -= this.currentJumpSpeed;
             this.currentJumpSpeed -= 0.1;
             
             //if the jump energy is over, we reset the jump speed
@@ -66,14 +87,16 @@ public class Player {
                 this.falling = true;
             }
         }
-        else if(this.falling) {
-            this.y += this.currentFallSpeed;
+        
+    	if(this.falling) {
+        	GameState.yOffset += this.currentFallSpeed;
             
             if(this.currentFallSpeed < this.maxFallSpeed) {
                 this.currentFallSpeed += 0.1;
             }
         }
-        else if(!this.falling) {
+        
+    	if(!this.falling) {
             this.currentFallSpeed = 0.1;
         }
     }

@@ -26,7 +26,11 @@ import javax.swing.JPanel;
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
 public class GamePanel extends JPanel implements Runnable, KeyListener {
-    public static final int WIDTH = 900;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final int WIDTH = 900;
     public static final int HEIGHT = 550;
     private static final int FPS = 60;
     private static final long targetTime = 1000 / FPS;
@@ -68,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
             
             try {
-                thread.sleep(wait); //if it's static -> Thread
+                Thread.sleep(wait);
             }
             catch(Exception e) {
                 e.printStackTrace();
