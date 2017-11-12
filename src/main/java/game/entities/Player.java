@@ -32,7 +32,7 @@ import java.awt.event.KeyEvent;
  */
 public class Player {
     //movement booleans
-    private boolean left = false, right = false, jumping = false, falling = false;
+    private boolean left = false, right = false, jumping = false, falling = false, topCollision = false;
     
     //bounds
     private double x, y;
@@ -60,38 +60,45 @@ public class Player {
     	int iX = (int) this.x;
     	int iY = (int) this.y;
     	
+    	//collision management
     	for(int i = 0; i < b.length; i++) {
     		
     		//top-right or bottom-right corner of the player
-    		if(Collision.playerBlock(new Point(iX + this.width + (int)GameState.xOffset, iY + (int)GameState.yOffset), b[i]) ||
-    				Collision.playerBlock(new Point(iX + this.width +(int)GameState.xOffset, iY + this.height + (int)GameState.yOffset), b[i])) {
+    		if(Collision.playerBlock(new Point(iX + this.width + (int)GameState.xOffset, iY + (int)GameState.yOffset + 2), b[i]) ||
+    				Collision.playerBlock(new Point(iX + this.width +(int)GameState.xOffset, iY + this.height + (int)GameState.yOffset - 1), b[i])) {
     			this.right = false;
     		}
     		
     		//top-left or bottom-left corner of the player
-    		if(Collision.playerBlock(new Point(iX + (int)GameState.xOffset, iY + (int)GameState.yOffset), b[i]) ||
-    				Collision.playerBlock(new Point(iX + (int)GameState.xOffset, iY + this.height + (int)GameState.yOffset), b[i])) {
+    		if(Collision.playerBlock(new Point(iX + (int)GameState.xOffset - 1, iY + (int)GameState.yOffset + 2), b[i]) ||
+    				Collision.playerBlock(new Point(iX + (int)GameState.xOffset - 1, iY + this.height + (int)GameState.yOffset - 1), b[i])) {
     			this.left = false;
     		}
     		
     		//top corner
-    		if(Collision.playerBlock(new Point(iX + (int)GameState.xOffset, iY + (int)GameState.yOffset), b[i]) ||
-    				Collision.playerBlock(new Point(iX + this.width + (int)GameState.xOffset, iY + (int)GameState.yOffset), b[i])) {
+    		if(Collision.playerBlock(new Point(iX + (int)GameState.xOffset + 1, iY + (int)GameState.yOffset), b[i]) ||
+    				Collision.playerBlock(new Point(iX + this.width + (int)GameState.xOffset - 1, iY + (int)GameState.yOffset), b[i])) {
     			this.jumping = false;
     			this.falling = true;
     		}
     		
     		//bottom corner
-    		if(Collision.playerBlock(new Point(iX + (int)GameState.xOffset, iY + this.height + (int)GameState.yOffset), b[i]) ||
-    				Collision.playerBlock(new Point(iX + this.width + (int)GameState.xOffset, iY + this.height + (int)GameState.yOffset), b[i])) {
+    		if(Collision.playerBlock(new Point(iX + (int)GameState.xOffset + 2, iY + this.height + (int)GameState.yOffset + 1), b[i]) ||
+    				Collision.playerBlock(new Point(iX + this.width + (int)GameState.xOffset - 1, iY + this.height + (int)GameState.yOffset + 1), b[i])) {
+    			this.y = b[i].getY() - this.height - GameState.yOffset;
     			this.falling = false;
-    			break;
+    			this.topCollision = true;
     		}
     		else {
-    			this.falling = true;
+    			if(!this.topCollision && !this.jumping) {
+    				this.falling = true;
+    			}
     		}
     	}
+    	
+    	this.topCollision = false;
         
+    	//movement management 
     	if(this.right) {
             GameState.xOffset += this.moveSpeed;
         }
@@ -131,27 +138,25 @@ public class Player {
     }
     
     public void keyPressed(int ke) {
-        switch (ke) {
-            case KeyEvent.VK_RIGHT:
-                this.right = true;
-                break;
-            case KeyEvent.VK_LEFT:
-                this.left = true;
-                break;
-            case KeyEvent.VK_SPACE:
-                this.jumping = true;
-                break;
-            default:
-                break;
-        }
+    	if(ke == KeyEvent.VK_RIGHT) {
+    		this.right = true;
+    	}
+    	else if(ke == KeyEvent.VK_LEFT) {
+    		this.left = true;
+    	}
+    	else if(ke == KeyEvent.VK_SPACE && !this.jumping && !this.falling) { //remove double jump
+    		this.jumping = true;
+    	}
     }
     
     public void keyReleased(int ke) {
-        if(ke == KeyEvent.VK_RIGHT) {
-            this.right = false;
-        }
-        else if(ke == KeyEvent.VK_LEFT) {
-            this.left = false;
-        }
+    	switch(ke) {
+    		case KeyEvent.VK_RIGHT:
+    			this.right = false;
+    			break;
+    		case KeyEvent.VK_LEFT:
+    			this.left = false;
+    			break;
+    	}
     }
 }
