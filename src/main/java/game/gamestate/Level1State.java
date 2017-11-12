@@ -40,7 +40,7 @@ public class Level1State extends GameState {
         this.b = new Block[3];
         this.b[0] = new Block(100, 100);
         this.b[1] = new Block(200, 200);
-        this.b[2] = new Block(300, 300);
+        this.b[2] = new Block(500, 300);
     }
 
     @Override

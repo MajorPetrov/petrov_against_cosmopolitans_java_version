@@ -61,10 +61,34 @@ public class Player {
     	int iY = (int) this.y;
     	
     	for(int i = 0; i < b.length; i++) {
+    		
     		//top-right or bottom-right corner of the player
-    		if(Collision.playerBlock(new Point(iX + this.width, iY), b[i]) ||
-    				Collision.playerBlock(new Point(iX + this.width, iY + height), b[i])) {
+    		if(Collision.playerBlock(new Point(iX + this.width + (int)GameState.xOffset, iY + (int)GameState.yOffset), b[i]) ||
+    				Collision.playerBlock(new Point(iX + this.width +(int)GameState.xOffset, iY + this.height + (int)GameState.yOffset), b[i])) {
     			this.right = false;
+    		}
+    		
+    		//top-left or bottom-left corner of the player
+    		if(Collision.playerBlock(new Point(iX + (int)GameState.xOffset, iY + (int)GameState.yOffset), b[i]) ||
+    				Collision.playerBlock(new Point(iX + (int)GameState.xOffset, iY + this.height + (int)GameState.yOffset), b[i])) {
+    			this.left = false;
+    		}
+    		
+    		//top corner
+    		if(Collision.playerBlock(new Point(iX + (int)GameState.xOffset, iY + (int)GameState.yOffset), b[i]) ||
+    				Collision.playerBlock(new Point(iX + this.width + (int)GameState.xOffset, iY + (int)GameState.yOffset), b[i])) {
+    			this.jumping = false;
+    			this.falling = true;
+    		}
+    		
+    		//bottom corner
+    		if(Collision.playerBlock(new Point(iX + (int)GameState.xOffset, iY + this.height + (int)GameState.yOffset), b[i]) ||
+    				Collision.playerBlock(new Point(iX + this.width + (int)GameState.xOffset, iY + this.height + (int)GameState.yOffset), b[i])) {
+    			this.falling = false;
+    			break;
+    		}
+    		else {
+    			this.falling = true;
     		}
     	}
         
