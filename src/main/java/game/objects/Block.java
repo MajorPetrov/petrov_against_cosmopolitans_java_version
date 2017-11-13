@@ -29,9 +29,11 @@ public class Block extends Rectangle {
 	
 	private static final long serialVersionUID = 1L;
 	public static final int blockSize = 64;
+	private int id;
 	
-	public Block(int x, int y) {
+	public Block(int x, int y, int id) {
 		this.setBounds(x, y, blockSize, blockSize);
+		this.id = id;
 	}
 	
 	public void tick() {
@@ -39,6 +41,8 @@ public class Block extends Rectangle {
 	}
 	
 	public void draw(Graphics g) {
-		g.fillRect(x - (int)GameState.xOffset, y - (int)GameState.yOffset, this.width, this.height);
+		if(this.id != 0) {
+			g.fillRect(x - (int)GameState.xOffset, y - (int)GameState.yOffset, this.width, this.height);
+		}
 	}
 }

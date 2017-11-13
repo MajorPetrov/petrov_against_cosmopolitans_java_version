@@ -17,6 +17,7 @@
 package game.mapping;
 
 import java.awt.Graphics;
+import java.io.*;
 
 import game.objects.Block;
 
@@ -30,16 +31,36 @@ public class Map {
 	private int width, height;
 	private Block[][] blocks;
 	
-	public Map(String loadPath, int width, int height) {
+	public Map(String loadPath) {
 		this.path = loadPath;
-		this.width = width;
-		this.height = height;
-		this.blocks = new Block[height][width];
+		this.loadMap();
+	}
+	
+	public Block[][] getBlocks() {
+		return this.blocks;
+	}
+	
+	public void loadMap() {
+		InputStream is = this.getClass().getResourceAsStream(this.path);
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		
-		for(int i = 0; i < this.blocks.length; i++) {
-			for(int j = 0; j < this.blocks[0].length; j++) {
-				this.blocks[i][j] = new Block(j * Block.blockSize, i * Block.blockSize);
+		try {
+			this.width = Integer.parseInt(br.readLine()); //transform string into a integer
+			this.height = Integer.parseInt(br.readLine());
+			
+			this.blocks = new Block[this.height][this.width];
+			String line = br.readLine();
+			
+			for(int y = 0; y < this.height; y++) {
+				String[] tokens = line.split("\\s+"); // \\s+ is space
+				
+				for(int x = 0; x < this.width; x++) {
+					this.blocks[y][x] = new Block(x * Block.blockSize, y * Block.blockSize, Integer.parseInt(tokens[x]));
+				}
 			}
+			
+		} catch (NumberFormatException | IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -49,9 +70,5 @@ public class Map {
 				this.blocks[i][j].draw(g);
 			}
 		}
-	}
-	
-	public Block[][] getBlocks() {
-		return this.blocks;
 	}
 }
