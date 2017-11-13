@@ -23,7 +23,8 @@ import java.awt.Graphics;
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
 public abstract class GameState {
-    protected GameStateManager gsm;
+    
+	protected GameStateManager gsm;
     public static double xOffset;
 	public static double yOffset;
     

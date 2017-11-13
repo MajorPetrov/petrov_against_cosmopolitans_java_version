@@ -26,9 +26,7 @@ import javax.swing.JPanel;
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
 public class GamePanel extends JPanel implements Runnable, KeyListener {
-    /**
-	 * 
-	 */
+    
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 900;
     public static final int HEIGHT = 550;

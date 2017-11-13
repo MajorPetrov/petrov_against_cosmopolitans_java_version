@@ -17,6 +17,7 @@
 package game.gamestate;
 
 import game.entities.Player;
+import game.mapping.Map;
 import game.objects.Block;
 
 import java.awt.Graphics;
@@ -28,7 +29,7 @@ import java.awt.Graphics;
 public class Level1State extends GameState {
     
     private Player player;
-    private Block[] b;
+    private Map map;
     
     public Level1State(GameStateManager gsm) {
         super(gsm);
@@ -37,27 +38,21 @@ public class Level1State extends GameState {
     @Override
     public void init() {
         this.player = new Player(30, 30);
-        this.b = new Block[3];
-        this.b[0] = new Block(200, 100);
-        this.b[1] = new Block(300, 200);
-        this.b[2] = new Block(400, 300);
+        this.map = new Map("", 4, 4);
+        
+        xOffset = -200;
+        yOffset = -400;
     }
 
     @Override
     public void tick() {
-    	for(int i = 0; i < this.b.length; i++) {
-    		this.b[i].tick();
-    	}
-    	this.player.tick(b);
+    	this.player.tick(this.map.getBlocks());
     }
 
     @Override
     public void draw(Graphics g) {
         this.player.draw(g);
-        
-        for(int i = 0; i < b.length; i++) {
-        	b[i].draw(g);
-        }
+        this.map.draw(g);
     }
 
     @Override

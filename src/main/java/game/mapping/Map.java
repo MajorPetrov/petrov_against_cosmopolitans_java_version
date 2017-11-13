@@ -14,31 +14,44 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.objects;
+package game.mapping;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
-import game.gamestate.GameState;
+import game.objects.Block;
 
 /**
- * 
+ *
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
-public class Block extends Rectangle {
+public class Map {
 	
-	private static final long serialVersionUID = 1L;
-	public static final int blockSize = 64;
+	private String path;
+	private int width, height;
+	private Block[][] blocks;
 	
-	public Block(int x, int y) {
-		this.setBounds(x, y, blockSize, blockSize);
-	}
-	
-	public void tick() {
-		//TODO
+	public Map(String loadPath, int width, int height) {
+		this.path = loadPath;
+		this.width = width;
+		this.height = height;
+		this.blocks = new Block[height][width];
+		
+		for(int i = 0; i < this.blocks.length; i++) {
+			for(int j = 0; j < this.blocks[0].length; j++) {
+				this.blocks[i][j] = new Block(j * Block.blockSize, i * Block.blockSize);
+			}
+		}
 	}
 	
 	public void draw(Graphics g) {
-		g.fillRect(x - (int)GameState.xOffset, y - (int)GameState.yOffset, this.width, this.height);
+		for(int i = 0; i < this.blocks.length; i++) {
+			for(int j = 0; j < this.blocks[0].length; j++) {
+				this.blocks[i][j].draw(g);
+			}
+		}
+	}
+	
+	public Block[][] getBlocks() {
+		return this.blocks;
 	}
 }
