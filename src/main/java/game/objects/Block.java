@@ -36,6 +36,14 @@ public class Block extends Rectangle {
 		this.id = id;
 	}
 	
+	public int getId() {
+		return this.id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public void tick() {
 		//TODO
 	}

@@ -47,12 +47,11 @@ public class Map {
 		try {
 			this.width = Integer.parseInt(br.readLine()); //transform string into a integer
 			this.height = Integer.parseInt(br.readLine());
-			
 			this.blocks = new Block[this.height][this.width];
-			String line = br.readLine();
 			
 			for(int y = 0; y < this.height; y++) {
-				String[] tokens = line.split("\\s+"); // \\s+ is space
+				String line = br.readLine(); // we need to read each line, then split it...
+				String[] tokens = line.split("\\s+"); // split by space
 				
 				for(int x = 0; x < this.width; x++) {
 					this.blocks[y][x] = new Block(x * Block.blockSize, y * Block.blockSize, Integer.parseInt(tokens[x]));
