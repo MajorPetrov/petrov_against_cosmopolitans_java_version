@@ -36,7 +36,7 @@ public class Level1State extends GameState {
     @Override
     public void init() {
         this.player = new Player(30, 30);
-        this.map = new Map("/map1.map");
+        this.map = new Map("/Maps/map1.map");
         
         xOffset = -200;
         yOffset = -400;

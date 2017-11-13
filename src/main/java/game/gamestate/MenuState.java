@@ -35,10 +35,12 @@ public class MenuState extends GameState {
 
     @Override
     public void init() {
+    	//TODO
     }
 
     @Override
     public void tick() {
+    	//TODO
     }
 
     @Override
@@ -92,6 +94,7 @@ public class MenuState extends GameState {
 
     @Override
     public void keyReleased(int ke) {
+    	//TODO
     }
     
 }

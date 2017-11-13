@@ -17,6 +17,8 @@
 package game.main;
 
 import game.gamestate.GameStateManager;
+import game.resources.Images;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JPanel;
@@ -41,6 +43,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.addKeyListener(this);
         this.setFocusable(true);
+        
+        new Images();
+        
         this.start();
     }
     

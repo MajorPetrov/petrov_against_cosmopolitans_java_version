@@ -14,45 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package game.objects;
+package game.resources;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-import game.gamestate.GameState;
-import game.resources.Images;
+import javax.imageio.ImageIO;
 
 /**
- * 
+ *
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
-public class Block extends Rectangle {
+public class Images {
 	
-	private static final long serialVersionUID = 1L;
-	public static final int blockSize = 64;
-	private int id;
+	public static BufferedImage[] blocks;
 	
-	public Block(int x, int y, int id) {
-		this.setBounds(x, y, blockSize, blockSize);
-		this.id = id;
-	}
-	
-	public int getId() {
-		return this.id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public void tick() {
-		//TODO
-	}
-	
-	public void draw(Graphics g) {
-		if(this.id != 0) {
-			g.drawImage(Images.blocks[id - 1], x - (int)GameState.xOffset, y - (int)GameState.yOffset,
-					this.width, this.height, null);
+	public Images() {
+		blocks = new BufferedImage[1];
+		try {
+			blocks[0] = ImageIO.read(this.getClass().getResourceAsStream("/Blocks/block_brick.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
