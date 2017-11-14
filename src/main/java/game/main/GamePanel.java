@@ -98,6 +98,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.clearRect(0, 0, WIDTH, HEIGHT);
+        g.drawImage(Images.background[0], 0, 0, null);
         gsm.draw(g);
     }
 

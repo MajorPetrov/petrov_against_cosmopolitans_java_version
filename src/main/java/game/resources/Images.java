@@ -27,12 +27,18 @@ import javax.imageio.ImageIO;
  */
 public class Images {
 	
+	public static BufferedImage[] background;
 	public static BufferedImage[] blocks;
 	
 	public Images() {
-		blocks = new BufferedImage[1];
+		background = new BufferedImage[1];
+		blocks = new BufferedImage[3];
+		
 		try {
-			blocks[0] = ImageIO.read(this.getClass().getResourceAsStream("/Blocks/block_brick.png"));
+			background[0] = ImageIO.read(this.getClass().getResourceAsStream("/images/BG/BG.png"));
+			blocks[0] = ImageIO.read(this.getClass().getResourceAsStream("/images/Tiles/1.png"));
+			blocks[1] = ImageIO.read(this.getClass().getResourceAsStream("/images/Tiles/2.png"));
+			blocks[2] = ImageIO.read(this.getClass().getResourceAsStream("/images/Tiles/3.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
