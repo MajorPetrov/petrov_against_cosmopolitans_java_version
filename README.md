@@ -1,5 +1,7 @@
 # The major Petrov against cosmopolitans
 
+[![Collaborator](https://img.shields.io/badge/%E2%99%A5-collaborator-ff0068.svg
+)](https://github.com/akinariobi)
 [![Java](https://img.shields.io/badge/download-java%209.0.1-green.svg
 )](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![GNU](https://img.shields.io/badge/license-GPL-brightgreen.svg
