@@ -58,7 +58,7 @@ public class Map {
 				}
 			}
 			
-		} catch (NumberFormatException | IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
