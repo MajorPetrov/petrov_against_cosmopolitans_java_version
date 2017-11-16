@@ -31,7 +31,7 @@ import java.awt.event.KeyEvent;
  * @author <a href=mailto:razdobreevvlad@yandex.ru> Vladimir Razdobreev </a>
  */
 public class Player {
-    
+	
 	//movement booleans
     private boolean left = false, right = false, jumping = false, falling = false, topCollision = false;
     
