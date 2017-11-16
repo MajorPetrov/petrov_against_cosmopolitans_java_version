@@ -34,7 +34,8 @@ public class Player {
 	
 	//movement booleans
     private boolean left = false, right = false, jumping = false, falling = false, topCollision = false;
-	//bounds
+	
+    //bounds
     private double x, y;
     private int width, height;
     
