@@ -29,16 +29,22 @@ public class Images {
 	
 	public static BufferedImage[] background;
 	public static BufferedImage[] blocks;
+	public static BufferedImage[] player;
 	
 	public Images() {
 		background = new BufferedImage[1];
 		blocks = new BufferedImage[3];
+		player = new BufferedImage[10];
 		
 		try {
 			background[0] = ImageIO.read(this.getClass().getResourceAsStream("/images/BG/BG.png"));
 			blocks[0] = ImageIO.read(this.getClass().getResourceAsStream("/images/Tiles/1.png"));
 			blocks[1] = ImageIO.read(this.getClass().getResourceAsStream("/images/Tiles/2.png"));
 			blocks[2] = ImageIO.read(this.getClass().getResourceAsStream("/images/Tiles/3.png"));
+			
+			for(int i = 1; i <= player.length; i++) {
+				player[i - 1] = ImageIO.read(this.getClass().getResourceAsStream("/images/Character/Idle (" + i + ").png"));
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
